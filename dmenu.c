@@ -188,16 +188,17 @@ drawitem(struct item *item, int x, int y, int w)
 static void
 recalculatenumbers()
 {
-	unsigned int numer = 0, denom = 0;
+	unsigned int index = 0, number = 0;
 	struct item *item;
 	if (matchend) {
-		numer++;
+		number++;
 		for (item = matchend; item && item->left; item = item->left)
-			numer++;
+			number++;
+    ++index;
+    for (item = matches; item && item != sel; item = item->right)
+      ++index;
 	}
-	for (item = items; item && item->text; item++)
-		denom++;
-	snprintf(numbers, NUMBERSBUFSIZE, "%d/%d", numer, denom);
+	snprintf(numbers, NUMBERSBUFSIZE, "%d/%d", index, number);
 }
 
 static void
